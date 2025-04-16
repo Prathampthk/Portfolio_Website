@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Admin Panel</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="theme-toggle">
+      <button id="theme-toggle-btn">
+        <i class="fas fa-moon"></i>
+        <span>Dark Mode</span>
+      </button>
+    </div>
+    <div class="container">
+      <!-- Auth Section -->
+      <div id="auth-section">
+        <div class="auth-container">
+          <h2>Admin Login</h2>
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-username">Username</label>
+              <input type="text" id="login-username" required />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" required />
+            </div>
+            <button type="submit" class="btn">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Project Management Section -->
+      <div id="project-section" class="project-section">
+        <div class="header">
+          <div class="header-left">
+            <h2>Project Management</h2>
+            <p class="subtitle">Manage your portfolio projects</p>
+          </div>
+          <div class="header-right">
+            <button id="logout-btn" class="btn logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="management-container">
+          <!-- Add Project Form -->
+          <div class="form-container">
+            <div class="form-header">
+              <h3><i class="fas fa-plus-circle"></i> Add New Project</h3>
+              <p>Fill in the details to add a new project to your portfolio</p>
+            </div>
+            <div id="add-project-form">
+              <form id="project-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="project-title">
+                      <i class="fas fa-heading"></i> Title
+                    </label>
+                    <input
+                      type="text"
+                      id="project-title"
+                      required
+                      placeholder="Enter project title"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="project-technologies">
+                      <i class="fas fa-code"></i> Technologies
+                    </label>
+                    <input
+                      type="text"
+                      id="project-technologies"
+                      required
+                      placeholder="e.g., React, Node.js, MongoDB"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="project-description">
+                    <i class="fas fa-align-left"></i> Description
+                  </label>
+                  <textarea
+                    id="project-description"
+                    required
+                    placeholder="Describe your project..."
+                  ></textarea>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="project-image">
+                      <i class="fas fa-image"></i> Image URL
+                    </label>
+                    <input
+                      type="text"
+                      id="project-image"
+                      required
+                      placeholder="Enter image URL"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="project-github">
+                      <i class="fab fa-github"></i> GitHub URL
+                    </label>
+                    <input
+                      type="text"
+                      id="project-github"
+                      required
+                      placeholder="Enter GitHub repository URL"
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn add-project-btn">
+                  <i class="fas fa-plus"></i> Add Project
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Edit Project Form -->
+          <div id="edit-project-form" class="form-container hidden">
+            <div class="form-header">
+              <h3><i class="fas fa-edit"></i> Edit Project</h3>
+              <p>Update the project details</p>
+            </div>
+            <form id="edit-form">
+              <input type="hidden" id="edit-project-id" />
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="edit-project-title">
+                    <i class="fas fa-heading"></i> Title
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-project-title"
+                    required
+                    placeholder="Enter project title"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="edit-project-technologies">
+                    <i class="fas fa-code"></i> Technologies
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-project-technologies"
+                    required
+                    placeholder="e.g., React, Node.js, MongoDB"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-project-description">
+                  <i class="fas fa-align-left"></i> Description
+                </label>
+                <textarea
+                  id="edit-project-description"
+                  required
+                  placeholder="Describe your project..."
+                ></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="edit-project-image">
+                    <i class="fas fa-image"></i> Image URL
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-project-image"
+                    required
+                    placeholder="Enter image URL"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="edit-project-github">
+                    <i class="fab fa-github"></i> GitHub URL
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-project-github"
+                    required
+                    placeholder="Enter GitHub repository URL"
+                  />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn edit-save-btn">
+                  <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button
+                  type="button"
+                  class="btn edit-cancel-btn"
+                  onclick="cancelEdit()"
+                >
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Projects List -->
+          <div class="projects-container">
+            <div class="projects-header">
+              <h3><i class="fas fa-folder"></i> Your Projects</h3>
+              <p>Manage your existing projects</p>
+            </div>
+            <div id="projects-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Add this at the beginning of the script section
+      // Theme toggle functionality
+      const themeToggleBtn = document.getElementById("theme-toggle-btn");
+      const themeIcon = themeToggleBtn.querySelector("i");
+      const themeText = themeToggleBtn.querySelector("span");
+
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        themeIcon.classList.replace("fa-moon", "fa-sun");
+        themeText.textContent = "Light Mode";
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        if (document.body.classList.contains("dark-mode")) {
+          localStorage.setItem("theme", "dark");
+          themeIcon.classList.replace("fa-moon", "fa-sun");
+          themeText.textContent = "Light Mode";
+        } else {
+          localStorage.setItem("theme", "light");
+          themeIcon.classList.replace("fa-sun", "fa-moon");
+          themeText.textContent = "Dark Mode";
+        }
+      });
+
+      const API_URL = "http://localhost:5001/api";
+      let token = localStorage.getItem("token");
+
+      // DOM Elements
+      const authSection = document.getElementById("auth-section");
+      const projectSection = document.getElementById("project-section");
+      const loginForm = document.getElementById("login-form");
+      const projectForm = document.getElementById("project-form");
+      const projectsList = document.getElementById("projects-list");
+      const logoutBtn = document.getElementById("logout-btn");
+      const messageDiv = document.getElementById("message");
+
+      // Check authentication status
+      if (token) {
+        verifyToken();
+      }
+
+      // Event Listeners
+      loginForm.addEventListener("submit", handleLogin);
+      projectForm.addEventListener("submit", handleProjectSubmit);
+      logoutBtn.addEventListener("click", handleLogout);
+
+      // Functions
+      async function verifyToken() {
+        try {
+          const response = await fetch(`${API_URL}/auth/verify`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.ok) {
+            showProjectSection();
+            loadProjects();
+          } else {
+            localStorage.removeItem("token");
+            showAuthSection();
+          }
+        } catch (error) {
+          console.error("Token verification error:", error);
+          localStorage.removeItem("token");
+          showAuthSection();
+        }
+      }
+
+      async function handleLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById("login-username").value;
+        const password = document.getElementById("login-password").value;
+
+        try {
+          const response = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+          console.log("Login response:", data);
+
+          if (response.ok && data.token) {
+            token = data.token;
+            localStorage.setItem("token", token);
+            showProjectSection();
+            loadProjects();
+            showMessage("Login successful!", "success");
+          } else {
+            console.error("Login failed:", data);
+            showMessage(
+              data.message || "Login failed. Please check your credentials.",
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          showMessage(
+            "Login failed. Please check if the server is running.",
+            "error"
+          );
+        }
+      }
+
+      async function handleProjectSubmit(e) {
+        e.preventDefault();
+        const projectData = {
+          title: document.getElementById("project-title").value,
+          description: document.getElementById("project-description").value,
+          technologies: document
+            .getElementById("project-technologies")
+            .value.split(",")
+            .map((t) => t.trim()),
+          imageUrl: document.getElementById("project-image").value,
+          githubUrl: document.getElementById("project-github").value,
+        };
+
+        try {
+          const response = await fetch(`${API_URL}/projects`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(projectData),
+          });
+          const data = await response.json();
+
+          if (response.ok) {
+            showMessage("Project added successfully!", "success");
+            projectForm.reset();
+            loadProjects();
+          } else {
+            showMessage(data.message || "Failed to add project", "error");
+          }
+        } catch (error) {
+          console.error("Add project error:", error);
+          showMessage("Failed to add project", "error");
+        }
+      }
+
+      async function loadProjects() {
+        try {
+          const response = await fetch(`${API_URL}/projects`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const projects = await response.json();
+
+          projectsList.innerHTML = projects
+            .map(
+              (project) => `
+            <div class="project-card">
+              <div class="project-image">
+                <img src="${project.imageUrl}" alt="${
+                project.title
+              }" onerror="this.src='images/default-project.jpg'">
+              </div>
+              <div class="project-content">
+                <h3>${project.title}</h3>
+                <p class="project-description">${project.description}</p>
+                <div class="project-technologies">
+                  ${project.technologies
+                    .map((tech) => `<span class="tech-tag">${tech}</span>`)
+                    .join("")}
+                </div>
+                <div class="project-links">
+                  <a href="${
+                    project.githubUrl
+                  }" target="_blank" class="github-link">
+                    <i class="fab fa-github"></i> View on GitHub
+                  </a>
+                </div>
+                <div class="project-actions">
+                  <button onclick="editProject('${
+                    project._id
+                  }')" class="btn edit-btn">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                  <button onclick="deleteProject('${
+                    project._id
+                  }')" class="btn delete-btn">
+                    <i class="fas fa-trash"></i> Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          `
+            )
+            .join("");
+        } catch (error) {
+          console.error("Load projects error:", error);
+          showMessage("Failed to load projects", "error");
+        }
+      }
+
+      async function deleteProject(id) {
+        if (!confirm("Are you sure you want to delete this project?")) return;
+
+        try {
+          const response = await fetch(`${API_URL}/projects/${id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.ok) {
+            showMessage("Project deleted successfully!", "success");
+            loadProjects();
+          } else {
+            showMessage("Failed to delete project", "error");
+          }
+        } catch (error) {
+          console.error("Delete project error:", error);
+          showMessage("Failed to delete project", "error");
+        }
+      }
+
+      function handleLogout() {
+        token = null;
+        localStorage.removeItem("token");
+        showAuthSection();
+        showMessage("Logged out successfully", "success");
+      }
+
+      function showProjectSection() {
+        authSection.style.display = "none";
+        projectSection.style.display = "block";
+        document.getElementById("add-project-form").style.display = "block";
+      }
+
+      function showAuthSection() {
+        authSection.style.display = "block";
+        projectSection.style.display = "none";
+      }
+
+      function showMessage(message, type) {
+        messageDiv.textContent = message;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = "block";
+        setTimeout(() => {
+          messageDiv.style.display = "none";
+        }, 3000);
+      }
+
+      // Add these new functions for editing projects
+      async function editProject(id) {
+        try {
+          const response = await fetch(`${API_URL}/projects/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const project = await response.json();
+
+          if (response.ok) {
+            document.getElementById("edit-project-id").value = project._id;
+            document.getElementById("edit-project-title").value = project.title;
+            document.getElementById("edit-project-description").value =
+              project.description;
+            document.getElementById("edit-project-technologies").value =
+              project.technologies.join(", ");
+            document.getElementById("edit-project-image").value =
+              project.imageUrl;
+            document.getElementById("edit-project-github").value =
+              project.githubUrl;
+
+            document.getElementById("add-project-form").style.display = "none";
+            document.getElementById("edit-project-form").style.display =
+              "block";
+          }
+        } catch (error) {
+          console.error("Edit project error:", error);
+          showMessage("Failed to load project for editing", "error");
+        }
+      }
+
+      async function handleEditSubmit(e) {
+        e.preventDefault();
+        const projectId = document.getElementById("edit-project-id").value;
+        const projectData = {
+          title: document.getElementById("edit-project-title").value,
+          description: document.getElementById("edit-project-description")
+            .value,
+          technologies: document
+            .getElementById("edit-project-technologies")
+            .value.split(",")
+            .map((t) => t.trim()),
+          imageUrl: document.getElementById("edit-project-image").value,
+          githubUrl: document.getElementById("edit-project-github").value,
+        };
+
+        try {
+          const response = await fetch(`${API_URL}/projects/${projectId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(projectData),
+          });
+
+          if (response.ok) {
+            showMessage("Project updated successfully!", "success");
+            cancelEdit();
+            loadProjects();
+          } else {
+            showMessage("Failed to update project", "error");
+          }
+        } catch (error) {
+          console.error("Update project error:", error);
+          showMessage("Failed to update project", "error");
+        }
+      }
+
+      function cancelEdit() {
+        document.getElementById("edit-project-form").style.display = "none";
+        document.getElementById("add-project-form").style.display = "block";
+        document.getElementById("edit-form").reset();
+      }
+
+      // Add event listener for edit form
+      document
+        .getElementById("edit-form")
+        .addEventListener("submit", handleEditSubmit);
+
+      // Make functions available globally
+      window.deleteProject = deleteProject;
+      window.editProject = editProject;
+      window.cancelEdit = cancelEdit;
+    </script>
+  </body>
+</html>
